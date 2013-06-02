@@ -23,7 +23,13 @@ int main(int argc, char **argv)
 
             if (argc>2)
             {
-                std::string seg=argv[2];
+                std::string siter=argv[2];
+                std::stringstream ss(siter);
+                ss>>niter;
+            }
+            if (argc>3)
+            {
+                std::string seg=argv[3];
                 std::stringstream ss(seg);
                 ss>>nseeds;
             }
@@ -31,7 +37,7 @@ int main(int argc, char **argv)
             for(std::size_t i=0; i<nseeds;i++)
             {
                 PosteriorLevenbergMarquardt LM(&m,m.getPrior()->randomSample(0.1),e,0.01);
-                LM.optimize(10,1000);
+                LM.optimize(niter,1000);
 
                 std::stringstream ss1;
                 ss1<<LM.SS();
