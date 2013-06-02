@@ -337,17 +337,24 @@ std::vector<double> ABC_BCM::yfit(const VariablesValue &par,
                                   const std::vector<const ExperimentDistribution*>& exp,
                                   double dt) const
 {
-  std::vector<double> y;
+  std::vector<std::vector<double>> y(exp.size());
   for (std::size_t i=0; i<exp.size(); i++)
     {
       std::vector<double> yf=yfit(par,exp[i]->schedule(),dt);
-      y.insert(y.end(),yf.begin(),yf.end());
+      y[i]=yf;
     }
-  return y;
+  std::vector<double> yr;
+  for (std::size_t i=0; i<exp.size(); i++)
+    {
+      yr.insert(yr.end(),y[i].begin(),y[i].end());
+    }
+
+  return yr;
 }
 std::vector<double> ABC_BCM::y(const std::vector<const ExperimentDistribution *> exp) const
 {
   std::vector<double> yr;
+
   for (std::size_t i=0; i<exp.size(); i++)
     {
       auto it=yr.end();

@@ -20,13 +20,6 @@ int main(int argc, char **argv)
         {
             auto e=m.getExperiments({"media","mtb","CD137block"});
             std::size_t nseeds=1;
-            std::stringstream ss1;
-            ss1<<"optimize";
-            ss1<<ABC_BCM::seed;
-            ss1<<".txt";
-            std::string filename=ss1.str();
-            std::ofstream ff;
-            ff.open(filename.c_str()  , std::fstream::out);
 
             if (argc>2)
             {
@@ -40,6 +33,14 @@ int main(int argc, char **argv)
                 PosteriorLevenbergMarquardt LM(&m,m.getPrior()->randomSample(0.1),e,0.01);
                 LM.optimize(10,1000);
 
+                std::stringstream ss1;
+                ss1<<LM.SS();
+                ss1<<"optimize";
+                ss1<<ABC_BCM::seed;
+                ss1<<".txt";
+                std::string filename=ss1.str();
+                std::ofstream ff;
+                ff.open(filename.c_str()  , std::fstream::out);
 
 
 
