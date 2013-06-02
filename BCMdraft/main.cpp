@@ -20,6 +20,7 @@ int main(int argc, char **argv)
         {
             auto e=m.getExperiments({"media","mtb","CD137block"});
             std::size_t nseeds=1;
+            std::size_t niter;
 
             if (argc>2)
             {
