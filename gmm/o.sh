@@ -4,16 +4,14 @@
 #
 
 # Opciones SGE
-
-#$ -l h_rt=1:00:00
+#PBS -l h_rt=1:00:00
 # Setea 1horas de wall clock time
-#$ -cwd
-# Cambia al directorio actual
-#$ -V
+#PBS -V
 # Exporta las variables de entorno
-#$ -N bcm-t
+#PBS -N bcm-t
 # El nombre del job
-
+#PBS -d /home/lmoffatt/bcm-cd137/runs/
+# Cambia al directorio runs
 
 
 # Comando para correr el programa, tal cual lo llamaríamos desde la línea de comandos
@@ -24,4 +22,4 @@ export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 export OBJC_INCLUDE_PATH=$C_INCLUDE_PATH
 export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
 export PATH=/opt/gcc-4.8.0/bin:$PATH
-/home/lmoffatt/bcm-cd137/gmm/BCMdraft optimize 10 2
+/home/lmoffatt/bcm-cd137/gmm/BCMdraft optimize
