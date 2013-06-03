@@ -22,7 +22,7 @@ export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
 ####### Compiler, tools and options
 
 CC            = ~/opt/gcc-4.8.0/bin/gcc
-CXX           = LD_LIBRARY_PATH+=/home/lmoffatt/opt/mpc-1.0.1/lib ~/opt/gcc-4.8.0/bin/g++
+CXX           = LD_LIBRARY_PATH+=/home/lmoffatt/opt/mpc-1.0.1/lib:/home/lmoffatt/opt/mpfr-3.1.2/lib:/home/lmoffatt/opt/gmp-5.1.1/lib:/home/lmoffatt/opt/gcc-4.8.0/lib64/ ~/opt/gcc-4.8.0/bin/g++
 DEFINES       = 
 CFLAGS        = -m64 -pipe -O2 -Wall -W $(DEFINES)
 CXXFLAGS      = -m64 -pipe -std=c++11 -lpthread -fopenmp  -L/home/lmoffatt/opt/mpc-1.0.1/lib -O3 -Wall -W $(DEFINES)
