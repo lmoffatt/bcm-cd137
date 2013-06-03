@@ -8,19 +8,6 @@
 
 ###################   set evironment variables
 
-LD_LIBRARY_PATH+=:/home/lmoffatt/opt/gmp-5.1.1/lib 
-LD_LIBRARY_PATH+=:/home/lmoffatt/opt/mpfr-3.1.2/lib
-LD_LIBRARY_PATH+=:/home/lmoffatt/opt/mpc-1.0.1/lib
-LD_LIBRARY_PATH+=:/home/lmoffatt/opt/gcc-4.8.0/lib64/
-C_INCLUDE_PATH=/usr/include/x86_64-linux-gnu
-CPLUS_INCLUDE_PATH=$(C_INCLUDE_PATH)
-OBJC_INCLUDE_PATH=$(C_INCLUDE_PATH)
-LIBRARY_PATH+=:/usr/lib/x86_64-linux-gnu
-PATHO:=$(PATH)
-PATH:=$(HOME)/opt/gcc-4.8.0/bin:$(PATHO)
-
-
-#@echo $$LD_LIBRARY_PATH
 
 ####### Compiler, tools and options
 
