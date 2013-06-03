@@ -22,4 +22,4 @@ export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 export OBJC_INCLUDE_PATH=$C_INCLUDE_PATH
 export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
 export PATH=/opt/gcc-4.8.0/bin:$PATH
-/home/lmoffatt/bcm-cd137/gmm/BCMdraft optimize
+/home/lmoffatt/bcm-cd137/gmm/BCMdraft optimize 
