@@ -4,8 +4,6 @@
 #
 
 # Opciones SGE
-#PBS -l h_rt=1:00:00
-# Setea 1horas de wall clock time
 #PBS -V
 # Exporta las variables de entorno
 #PBS -N bcm-t
