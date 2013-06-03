@@ -21,7 +21,7 @@ int main(int argc, char **argv)
             auto e=m.getExperiments({"media","mtb","CD137block"});
             std::size_t nseeds=1;
             std::size_t niter;
-
+            double radius=0.5;
             if (argc>2)
             {
                 std::string siter=argv[2];
@@ -34,11 +34,18 @@ int main(int argc, char **argv)
                 std::stringstream ss(seg);
                 ss>>nseeds;
             }
+            if (argc>4)
+            {
+                std::string seg=argv[3];
+                std::stringstream ss(seg);
+                ss>>radius;
+            }
+
 
             for(std::size_t i=0; i<nseeds;i++)
             {
-                PosteriorLevenbergMarquardt LM(&m,m.getPrior()->randomSample(0.1),e,0.01);
-                LM.optimize(niter,1000);
+                PosteriorLevenbergMarquardt LM(&m,m.getPrior()->randomSample(radius),e,0.01);
+                LM.optimize(niter,10000);
 
                 std::stringstream ss1;
                 ss1<<LM.SS();
