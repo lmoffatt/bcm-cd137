@@ -18,7 +18,7 @@ export OBJC_INCLUDE_PATH=$C_INCLUDE_PATH
 export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
 
 ENVLUC     = LD_LIBRARY_PATH+=/home/lmoffatt/opt/mpc-1.0.1/lib:/home/lmoffatt/opt/mpfr-3.1.2/lib:/home/lmoffatt/opt/gmp-5.1.1/lib: \
-	/home/l	moffatt/opt/gcc-4.8.0/lib64/ \
+	/home/lmoffatt/opt/gcc-4.8.0/lib64/ \
 	C_INCLUDE_PATH=/usr/include/x86_64-linux-gnu \
 	CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH \
 	OBJC_INCLUDE_PATH=$C_INCLUDE_PATH \
