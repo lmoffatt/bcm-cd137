@@ -2,6 +2,7 @@
 #include<limits>
 #include <sstream>
 #include <thread>
+#include <fstream>
 #include "Include/PosteriorLevenbergMarquardt.h"
 #include "Include/MatrixInverse.h"
 
@@ -57,6 +58,14 @@ PosteriorLevenbergMarquardt& PosteriorLevenbergMarquardt::optimize(std::size_t n
                                                                    double maxTime)
 {
   std::cout<<iter_.header();
+  std::stringstream ss1;
+  ss1<<"optimize";
+  ss1<<ABC_BCM::seed;
+  ss1<<".txt";
+  std::string filename=ss1.str();
+  std::ofstream ff;
+  ff.open(filename.c_str(),std::fstream::out|std::fstream::app);
+  ff<<iter_.header()<<std::endl;
   convCriter_.addIter(numIterations);
   convCriter_.addTime(maxTime);
   while (!convCriter_.meetConvergenceCriteria(iter_))
@@ -157,9 +166,23 @@ void PosteriorLevenbergMarquardt::testedValue::iterate()
   computeSearchDirection();
   updateLanda();
   t1_=std::chrono::steady_clock::now();
+  std::stringstream ss1;
+  ss1<<"optimize";
+  ss1<<ABC_BCM::seed;
+  ss1<<".txt";
+  std::string filename=ss1.str();
+  std::ofstream ff;
+  ff.open(filename.c_str(),std::fstream::out|std::fstream::app);
+
+
+
 
   std::cerr<<nIter_<<"\t"<<currSS_<<"\t"<<elapsedTime()<<"\t\t"<<landa_<<"\t";
   std::cerr<<ParamChange_<<"\t"<<SSChange_<<"\t"<<NormGrad_<<"\n";
+
+  ff<<nIter_<<"\t"<<currSS_<<"\t"<<elapsedTime()<<"\t\t"<<landa_<<"\t";
+  ff<<ParamChange_<<"\t"<<SSChange_<<"\t"<<NormGrad_<<"\n";
+
 
   nIter_++;
 }

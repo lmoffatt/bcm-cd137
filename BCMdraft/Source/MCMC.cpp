@@ -87,9 +87,12 @@ runMCMC(std::string filename,
           double ss=m->SumWeighedSquare(parcenter,exper,dt);
           double sspar=m->SumWeighedSquareParameters(parcenter);
           mcmc.logL.push_back(logL);
+
           mcmc.p.push_back(parcenter);
           f<<i<<"\t"<<beta<<"\t"<<mcmc.factor<<"\t"<<ratio<<"\t"<<logL<<"\t"<<ss<<"\t"<<ss-sspar<<"\n";
           std::cerr<<i<<"\t"<<beta<<"\t"<<mcmc.factor<<"\t"<<ratio<<"\t"<<logL<<"\t"<<ss<<"\t"<<ss-sspar<<"\n";
+
+
           mcmc.sumLogL+=logL;
           mcmc.sumLogL2=logL*logL;
           mcmc.sumP+=exp(logL);

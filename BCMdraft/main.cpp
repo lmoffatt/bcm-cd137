@@ -20,7 +20,7 @@ int main(int argc, char **argv)
         {
             auto e=m.getExperiments({"media","mtb","CD137block"});
             std::size_t nseeds=1;
-            std::size_t niter;
+            std::size_t niter=100;
             double radius=0.5;
             if (argc>2)
             {
@@ -29,12 +29,6 @@ int main(int argc, char **argv)
                 ss>>niter;
             }
             if (argc>3)
-            {
-                std::string seg=argv[3];
-                std::stringstream ss(seg);
-                ss>>nseeds;
-            }
-            if (argc>4)
             {
                 std::string seg=argv[3];
                 std::stringstream ss(seg);
