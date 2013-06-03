@@ -16,7 +16,9 @@ export C_INCLUDE_PATH=/usr/include/x86_64-linux-gnu
 export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 export OBJC_INCLUDE_PATH=$C_INCLUDE_PATH
 export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
-export PATH=/opt/gcc-4.8.0/bin:$PATH
+export PATH=/opt/gcc-4.8.0/bin+$PATH
+
+#@echo $$LD_LIBRARY_PATH
 
 ####### Compiler, tools and options
 
