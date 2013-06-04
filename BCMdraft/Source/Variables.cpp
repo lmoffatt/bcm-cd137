@@ -195,7 +195,7 @@ MultipleVariables::~MultipleVariables(){
 
 std::size_t VariablesValue::size()const
 {
-  return values_.size();
+  return variables()->size();
 }
 
 VariablesValue::VariablesValue(const MultipleVariables* var):

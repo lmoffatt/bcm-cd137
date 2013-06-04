@@ -38,7 +38,8 @@ int main(int argc, char **argv)
 
             for(std::size_t i=0; i<nseeds;i++)
             {
-                PosteriorLevenbergMarquardt LM(&m,m.getPrior()->randomSample(radius),e,0.01);
+                PosteriorLevenbergMarquardt LM(
+                      &m,m.getPrior()->randomSample(radius),e,0.01);
                 LM.optimize(niter,10000);
 
                 std::stringstream ss1;
@@ -64,7 +65,37 @@ int main(int argc, char **argv)
 
 
         }
-    }
+
+        else if (command=="simulate"){
+            std::string fnpar="testParameters.txt";
+            double dt=0.01;
+
+            if (argc>2)
+            {
+                fnpar=argv[2];
+            }
+            std::fstream f;
+            f.open(fnpar);
+            VariablesNormalDistribution testP(m.getPrior()->variables());
+            auto e=m.getExperiments({"media","mtb","CD137block"});
+            f>>testP;
+            auto sim=m.simulate(testP.center(),e,dt,0.0);
+
+
+            std::string fnout="simulate"+fnpar;
+
+            std::ofstream fout;
+            fout.open(fnout);
+            fout<<sim;
+            for (std::size_t i=0; i< sim.size(); i++)
+              delete sim[i];
+
+
+
+
+
+          }
+      }
     return 0;
 
 }

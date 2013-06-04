@@ -85,6 +85,9 @@ public:
                               const std::vector< std::vector <double> >& cov );
 
 
+  VariablesNormalDistribution(const MultipleVariables* var);
+
+
 public:
   friend std::istream& operator>>(std::istream& s, VariablesNormalDistribution& v);
 
@@ -98,7 +101,7 @@ public:
 
 std::ostream& operator<<(std::ostream& s, const VariablesNormalDistribution& v);
 
-std::istream& operator>>(std::istream& s, VariablesNormalDistribution& v);
+  std::istream& operator>>(std::istream& s, VariablesNormalDistribution& v);
 
 
 

@@ -162,6 +162,14 @@ VariablesNormalDistribution::VariablesNormalDistribution(const MultipleVariables
   w_(pow(tStd_,-2))
 {}
 
+VariablesNormalDistribution::VariablesNormalDistribution(const MultipleVariables* var):
+  var_(VariablesValue(var)),
+  cov_(std::vector<std::vector<double> > ()),
+  tStd_(),
+  cho_(),
+  w_()
+{}
+
 
 VariablesNormalDistribution::VariablesNormalDistribution(const VariablesValue &par,
                                                          const std::vector< std::vector <double> >& cov ):
@@ -202,7 +210,13 @@ std::ostream& operator<<(std::ostream& s, const VariablesNormalDistribution& v)
 std::istream& operator>>(std::istream& s, VariablesNormalDistribution& v)
 {
   std::string line;
-  std::getline(s,line);//<<"Variables_Normal_Distriubion \n";
+  //<<"Variables_Normal_Distriubion \n";
+  while (line.find("Variables_Normal_Distriubion")==std::string::npos)
+         {
+      std::getline(s,line);
+      if (!s.good())
+        return s;
+    }
   std::getline(s,line);//  s<<"Begin \n";
 
   std::getline(s,line);//  s<<"Bayesian_Model \n";
