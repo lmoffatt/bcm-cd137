@@ -8,10 +8,6 @@
 #include "Include/PosteriorLevenbergMarquardt.h"
 
 int main(int argc, char **argv)
-
-
-
-
 {
     BCM_CD137 m;
 
