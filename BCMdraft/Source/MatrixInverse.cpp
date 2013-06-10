@@ -64,8 +64,8 @@ inv(const std::vector< std::vector< double> >& matrix)
   int dla=n;
   //A=new double[n*n];
   A= new double[n*n]; //more efficient code
-  for (size_t i = 0; i < n; i++)
-    for (size_t j = 0; j < n; j++)
+  for (int i = 0; i < n; i++)
+    for (int j = 0; j < n; j++)
       *(A+i+n*j) = matrix[i][j];
 
   ipiv = new int[n];
@@ -78,8 +78,8 @@ inv(const std::vector< std::vector< double> >& matrix)
   dgetri_(&n,A,&dla,ipiv,work,&lwork,&info);
 
   std::vector< std::vector<double> > result(n,std::vector<double>(n));
-  for (size_t i = 0; i < n; i++)
-    for (size_t j = 0; j < n; j++)
+  for (int i = 0; i < n; i++)
+    for (int j = 0; j < n; j++)
       result[i][j]=*(A+i+n*j);
   delete [] ipiv;
   delete [] work;
@@ -175,6 +175,18 @@ sum(const std::vector< std::vector< double> >& A,
       }
   return result;
 }
+
+
+double diagProduct(const std::vector< std::vector< double> >& matrix)
+{
+  double p=1;
+
+  for (std::size_t i=0; i<(std::min(matrix.size(),matrix[0].size())); ++i)
+    p*=matrix[i][i];
+  return p;
+}
+
+
 
 std::vector< std::vector< double> >
 mult(const std::vector< std::vector< double> >& A,
@@ -273,6 +285,16 @@ double erfinv(double y)
     }
   return x;
 }
+
+std::vector<double> operator-(const std::vector<double>& x,const std::vector<double>& y )
+{
+  std::vector<double> res(x.size());
+  for (std::size_t i=0; i<x.size(); i++)
+    res[i]=x[i]-y[i];
+  return res;
+
+}
+
 
 
 double normal_cdf_inv(double p)

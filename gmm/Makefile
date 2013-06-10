@@ -46,7 +46,8 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../BCMdraft/Source/VariablesNormalDistribution.cpp \
+SOURCES       = ../BCMdraft/Source/RandGenerator.cpp \
+		../BCMdraft/Source/VariablesNormalDistribution.cpp \
 		../BCMdraft/Source/Variables.cpp \
 		../BCMdraft/Source/Experiment.cpp \
 		../BCMdraft/Source/ABC_BCM.cpp \
@@ -56,7 +57,8 @@ SOURCES       = ../BCMdraft/Source/VariablesNormalDistribution.cpp \
 		../BCMdraft/Source/MatrixInverse.cpp \
 		../BCMdraft/main.cpp \
 		../BCMdraft/Source/matrixCholesky.cpp 
-OBJECTS       = VariablesNormalDistribution.o \
+OBJECTS       = RandGenerator.o \
+		VariablesNormalDistribution.o \
 		Variables.o \
 		Experiment.o \
 		ABC_BCM.o \
@@ -156,6 +158,9 @@ compiler_clean:
 
 ####### Compile
 
+RandGenerator.o: ../BCMdraft/Source/RandGenerator.cpp ../BCMdraft/Include/RandGenerator.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o RandGenerator.o ../BCMdraft/Source/RandGenerator.cpp
+
 VariablesNormalDistribution.o: ../BCMdraft/Source/VariablesNormalDistribution.cpp ../BCMdraft/Include/VariablesNormalDistribution.h \
 		../BCMdraft/Include/Variables.h \
 		../BCMdraft/Include/MatrixInverse.h \
@@ -214,7 +219,8 @@ main.o: ../BCMdraft/main.cpp ../BCMdraft/Include/BCM_CD137.h \
 		../BCMdraft/Include/Variables.h \
 		../BCMdraft/Include/VariablesNormalDistribution.h \
 		../BCMdraft/Include/MatrixInverse.h \
-		../BCMdraft/Include/PosteriorLevenbergMarquardt.h
+		../BCMdraft/Include/PosteriorLevenbergMarquardt.h \
+		../BCMdraft/Include/MCMC.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../BCMdraft/main.cpp
 
 matrixCholesky.o: ../BCMdraft/Source/matrixCholesky.cpp ../BCMdraft/Include/MatrixInverse.h

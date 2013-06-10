@@ -21,7 +21,8 @@ QMAKE_CXXFLAGS_RELEASE +=-O3
 
 
 
-SOURCES +=Source/VariablesNormalDistribution.cpp\
+SOURCES +=Source/RandGenerator.cpp\
+    Source/VariablesNormalDistribution.cpp\
     Source/Variables.cpp\
     Source/Experiment.cpp \
     Source/ABC_BCM.cpp \
@@ -39,7 +40,9 @@ HEADERS += \
     Include/Experiment.h \
     Include/MCMC.h \
     Include/Variables.h \
-    Include/VariablesNormalDistribution.h
+    Include/VariablesNormalDistribution.h \
+    Include/RandGenerator.h \
+    Include/SampledDistribution.h
 
 win32{
 LIBS += -L$$PWD/bin -lcygblas \

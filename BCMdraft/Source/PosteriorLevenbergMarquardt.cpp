@@ -144,7 +144,9 @@ testedValue(ABC_BCM* m,
   newParam_(initial),
   newParam0_(initial),
   currYfit_(m->Tyfit(initial,expset,dt_)),
-  currSS_(m->SSdata(currYfit_,data_,w_)+m->SSpar(initial)),
+  currSSd_(m->SSdata(currYfit_,data_,w_)),
+  currSS_(currSSd_+m->SSpar(initial)),
+
   J_(std::vector<std::vector<double>>(nData_,std::vector<double>(nPar_))),
   G_(std::vector<double>(nPar_)),
   JTWJ_(std::vector< std::vector<double> > (nPar_,std::vector<double>(nPar_))),
@@ -177,10 +179,10 @@ void PosteriorLevenbergMarquardt::testedValue::iterate()
 
 
 
-  std::cerr<<nIter_<<"\t"<<currSS_<<"\t"<<elapsedTime()<<"\t\t"<<landa_<<"\t";
+  std::cerr<<nIter_<<"\t"<<currSSd_<<"\t"<<currSS_<<"\t"<<elapsedTime()<<"\t\t"<<landa_<<"\t";
   std::cerr<<ParamChange_<<"\t"<<SSChange_<<"\t"<<NormGrad_<<"\n";
 
-  ff<<nIter_<<"\t"<<currSS_<<"\t"<<elapsedTime()<<"\t\t"<<landa_<<"\t";
+  ff<<nIter_<<"\t"<<currSSd_<<"\t"<<currSS_<<"\t"<<elapsedTime()<<"\t\t"<<landa_<<"\t";
   ff<<ParamChange_<<"\t"<<SSChange_<<"\t"<<NormGrad_<<"\n";
 
 
@@ -317,15 +319,17 @@ void PosteriorLevenbergMarquardt::testedValue::computeSearchDirection()
   else
     {
 
+      newSSd_=0;
       newSSW_=0;
       for (std::size_t n=0; n<nData_; n++)
         {
-          newSSW_+=(newYfit_[n]-data_[n])*(newYfit_[n]-data_[n])*w_[n];
+          newSSd_+=(newYfit_[n]-data_[n])*(newYfit_[n]-data_[n])*w_[n];
         }
       for (std::size_t n=0; n<nPar_; n++)
         {
           newSSW_+=std::pow((newParam_.getTvalue(n)-par_[n]),2)*wPar_[n];
         }
+      newSSW_+=newSSd_;
     }
 }
 
@@ -363,6 +367,7 @@ void PosteriorLevenbergMarquardt::testedValue::updateLanda()
           landa0_=landa_;
           landa_=landa_/v_;
           newSSW0_=newSSW_;
+          newSSd0_=newSSd_;
           newParam0_=newParam_;
           newYfit0_=newYfit_;
           computeSearchDirection();
@@ -373,6 +378,7 @@ void PosteriorLevenbergMarquardt::testedValue::updateLanda()
           landa_=landa0_;
           newParam_=newParam0_;
           newSSW_=newSSW0_;
+          newSSd_=newSSd0_;
           newYfit_=newYfit0_;
         }
     }
@@ -391,6 +397,7 @@ void PosteriorLevenbergMarquardt::testedValue::updateLanda()
       SSChange_=currSS_-newSSW_;
       currParam_=newParam_;
       currSS_=newSSW_;
+      currSSd_=newSSd_;
       currYfit_=newYfit_;
     }
   NormGrad_=0;

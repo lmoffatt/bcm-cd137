@@ -588,7 +588,7 @@ VariablesNormalDistribution ABC_BCM::getJJwbeta(const VariablesValue &par,
 
   if (beta>0)
     {
-      std::vector<double> y=this->yfit(par,exp,dt);
+      std::vector<double> y=this->Tyfit(par,exp,dt);
       std::vector<std::vector<double> > Jacobian(npar,std::vector<double>(ndata));
 
 
@@ -598,18 +598,18 @@ VariablesNormalDistribution ABC_BCM::getJJwbeta(const VariablesValue &par,
           double tx=p1.getTvalue(i);
           double ddx=dx;
           p1.setTvalue(i,tx+ddx);
-          std::vector<double> y1=yfit(p1,exp,dt);
+          std::vector<double> y1=Tyfit(p1,exp,dt);
           if (isNaN(y1))
             {
               ddx=-ddx;
               p1.setTvalue(i,tx+ddx);
-              y1=yfit(p1,exp,dt);
+              y1=Tyfit(p1,exp,dt);
             }
           while (isNaN(y1))
             {
               ddx/=2;
               p1.setTvalue(i,tx+ddx);
-              y1=yfit(p1,exp,dt);
+              y1=Tyfit(p1,exp,dt);
             }
 
 
@@ -641,9 +641,9 @@ double ABC_BCM::posteriorLogLikelihood(const VariablesValue &p,
                                        const std::vector<const ExperimentDistribution*> &exp,
                                        double dt)
 {
-  const double PI=3.1415926;
+  const double PI=M_PI;
 
-  std::vector<double> d=this->y(exp);
+  std::vector<double> d=this->Ty(exp);
   std::vector<double> wD=this->w(exp);
 
   std::vector<double>pr=getPrior()->center().tvalues();
@@ -657,7 +657,7 @@ double ABC_BCM::posteriorLogLikelihood(const VariablesValue &p,
   std::size_t ndata=d.size();
 
 
-  std::vector<double> y=this->yfit(p,exp,dt);
+  std::vector<double> y=this->Tyfit(p,exp,dt);
 
 
 
@@ -677,9 +677,9 @@ double ABC_BCM::logLikelihood(const VariablesValue& p,
                               const std::vector<const ExperimentDistribution *> &exp,
                               double dt)
 {
-  const double PI=3.1415926;
+  const double PI=M_PI;
 
-  std::vector<double> d=this->y(exp);
+  std::vector<double> d=this->Ty(exp);
   std::vector<double> wD=this->w(exp);
 
   double logL=0;
@@ -687,7 +687,7 @@ double ABC_BCM::logLikelihood(const VariablesValue& p,
   std::size_t ndata=d.size();
 
 
-  std::vector<double> y=this->yfit(p,exp,dt);
+  std::vector<double> y=this->Tyfit(p,exp,dt);
 
   for (std::size_t i=0; i<ndata;i++)
     {
@@ -706,7 +706,7 @@ double ABC_BCM::SumWeighedSquare(const VariablesValue& p,
                                  double dt)
 {
 
-  std::vector<double> d=this->y(exp);
+  std::vector<double> d=this->Ty(exp);
   std::vector<double> wD=this->w(exp);
 
   double SSw=0;
@@ -714,7 +714,7 @@ double ABC_BCM::SumWeighedSquare(const VariablesValue& p,
   std::size_t ndata=d.size();
 
 
-  std::vector<double> y=this->yfit(p,exp,dt);
+  std::vector<double> y=this->Tyfit(p,exp,dt);
 
   for (std::size_t i=0; i<ndata;i++)
     {

@@ -8,6 +8,13 @@ inv(const std::vector< std::vector< double> >& matrix);
 
 double det(const std::vector< std::vector< double> >& matrix);
 
+
+double diagProduct(const std::vector< std::vector< double> >& matrix);
+
+
+std::vector<double> operator-(const std::vector<double>& x,const std::vector<double>& y );
+
+
 std::vector< std::vector< double> >
 chol(const std::vector< std::vector< double> >& matrix);
 

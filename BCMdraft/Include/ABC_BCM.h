@@ -51,6 +51,13 @@ double randNormal(double mean,double std);
 
 
 
+
+
+class ABC_yfit
+{
+ virtual std::vector<double> Tyfit(const VariablesValue& par) const=0;
+};
+
 class ABC_BCM
 {
 public:
@@ -251,12 +258,6 @@ inline std::ostream& operator<<(std::ostream& s, std::vector<std::string> v)
 }
 
 
-class ABC_BCM_Table
-{
-
-  virtual ABC_BCM* getBCM(const std::string& name)=0;
-
-};
 
 
 
