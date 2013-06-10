@@ -31,9 +31,9 @@ runMCMC(std::string filename,
   mcmc.sumP=0;
 
   VariablesNormalDistribution par=m->getJJwbeta(start,beta,exper,delta,dt);
-  VariablesValue parcenter=par.center();
+  VariablesNormalDistribution parcenter=par;
 
-  double postLogLik0=m->posteriorLogLikelihood(parcenter,beta,exper,dt);
+  double postLogLik0=m->posteriorLogLikelihood(parcenter.center(),beta,exper,dt);
   double postLogLik=postLogLik0;
 
   double lik=exp(postLogLik-postLogLik0);
@@ -49,7 +49,7 @@ runMCMC(std::string filename,
       std::size_t nsubsteps=par.size()*3;
       for (std::size_t ii=0; ii<par.size(); ii++)
         {
-          VariablesValue nextPar=par.randomSample(mcmc.factor);
+          VariablesValue nextPar=parcenter.randomSample(mcmc.factor);
 
           double  nextpostLogL=m->posteriorLogLikelihood(nextPar,beta,exper,dt);
 
@@ -61,7 +61,7 @@ runMCMC(std::string filename,
 
           if (nextLik/lik>r)
             {
-              parcenter=nextPar;
+              parcenter.setMeanValues(nextPar.values());
               postLogLik=nextpostLogL;
 
               lik=nextLik;
@@ -82,15 +82,15 @@ runMCMC(std::string filename,
       if (i>0)
         {
 
-          double logL=m->logLikelihood(parcenter,exper,dt);
+          double logL=m->logLikelihood(parcenter.center(),exper,dt);
 
-          double ss=m->SumWeighedSquare(parcenter,exper,dt);
-          double sspar=m->SumWeighedSquareParameters(parcenter);
+          double ss=m->SumWeighedSquare(parcenter.center(),exper,dt);
+          double sspar=m->SumWeighedSquareParameters(parcenter.center());
           mcmc.logL.push_back(logL);
 
-          mcmc.p.push_back(parcenter);
-          f<<i<<"\t"<<beta<<"\t"<<mcmc.factor<<"\t"<<ratio<<"\t"<<logL<<"\t"<<ss<<"\t"<<ss-sspar<<"\n";
-          std::cerr<<i<<"\t"<<beta<<"\t"<<mcmc.factor<<"\t"<<ratio<<"\t"<<logL<<"\t"<<ss<<"\t"<<ss-sspar<<"\n";
+          mcmc.p.push_back(parcenter.center());
+          f<<i<<"\t"<<beta<<"\t"<<mcmc.factor<<"\t"<<ratio<<"\t"<<logL<<"\t"<<ss+sspar<<"\t"<<ss<<"\n";
+          std::cerr<<i<<"\t"<<beta<<"\t"<<mcmc.factor<<"\t"<<ratio<<"\t"<<logL<<"\t"<<ss+sspar<<"\t"<<ss<<"\n";
 
 
           mcmc.sumLogL+=logL;

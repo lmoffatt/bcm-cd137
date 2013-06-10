@@ -37,11 +37,26 @@ public:
 };
 
 
+class ABC_Distribution
+
+{
+public:
+  virtual VariablesValue randomSample()const=0;
+
+  virtual double logProbability(const VariablesValue& sample)const=0;
+
+  virtual const MultipleVariables* variables()const=0;
+
+
+  virtual double KLdivergence(const ABC_Distribution& dist,std::size_t nsamples)const;
 
 
 
+ };
 
-class VariablesNormalDistribution
+
+
+class VariablesNormalDistribution: public ABC_Distribution
 {
 public:
   virtual VariablesValue randomSample()const;
@@ -49,6 +64,8 @@ public:
   virtual VariablesValue randomSample(double factor)const;
 
   virtual const VariablesValue &center()const;
+
+  virtual double logProbability(const VariablesValue& sample)const;
 
 
   virtual std::size_t size() const;

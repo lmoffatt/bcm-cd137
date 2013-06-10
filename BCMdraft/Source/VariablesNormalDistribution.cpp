@@ -3,6 +3,7 @@
 #include <random>
 #include <chrono>
 #include <sstream>
+#include <cmath>
 
 #include "Include/VariablesNormalDistribution.h"
 #include "Include/MatrixInverse.h"
@@ -36,6 +37,27 @@ std::pair<double,double> Mean_DB::getTransformedMoments(const Transformation* T,
   return {T->eval(first),10.0*second};
 
 }
+
+double ABC_Distribution::KLdivergence(const ABC_Distribution& dist,std::size_t nsamples)const
+{
+  if (dist.variables()!=variables())
+    return std::numeric_limits<double>::quiet_NaN();
+  else
+    {
+      double KLdiv=0;
+      for (std::size_t i=0; i<nsamples; i++)
+        {
+          auto sample=randomSample();
+          double logP=logProbability(sample);
+          double logQ=dist.logProbability(sample);
+          KLdiv+=(logQ-logP);
+        }
+      KLdiv/=nsamples;
+      return KLdiv;
+    }
+}
+
+
 
 
 VariablesNormalDistribution& VariablesNormalDistribution::setTmeanValues(const std::vector<double>& tmean)
@@ -101,6 +123,44 @@ VariablesValue VariablesNormalDistribution::randomSample(double factor)const
 
   VariablesValue s(variables());
   return s.setTransfValues(val);
+
+}
+
+
+
+double VariablesNormalDistribution::logProbability(const VariablesValue& sample)const
+{
+  auto dx=sample.tvalues()-center().tvalues();
+  if (cov_.size()>0)
+    {
+      auto covinv=inv(cov_);
+      std::vector<double> xcovinv(cov_.size(),0);
+      for (std::size_t i=0; i<cov_.size(); ++i)
+        for (std::size_t j=0; j<cov_.size(); ++j)
+          xcovinv[j]+=dx[i]*covinv[i][j];
+      double logP=0;
+      for (std::size_t i=0; i<cov_.size(); ++i)
+        logP-=xcovinv[i]*dx[i];
+
+      logP/=2;
+      logP-=0.5*log(diagProduct(cho_))-0.5*cov_.size()*log(2.0*M_PI);
+      return logP;
+    }
+  else
+    {
+      double logP=0;
+      double logdet=0;
+      for (std::size_t i=0; i<tStd_.size(); ++i)
+        {
+          double chi=dx[i]/tStd_[i];
+          logP-=chi*chi;
+          logdet+=log(tStd_[i]);
+        }
+      logP/=2;
+      logP-=0.5*logdet-0.5*tStd_.size()*log(2.0*M_PI);
+      return logP;
+
+    }
 
 }
 
@@ -212,7 +272,7 @@ std::istream& operator>>(std::istream& s, VariablesNormalDistribution& v)
   std::string line;
   //<<"Variables_Normal_Distriubion \n";
   while (line.find("Variables_Normal_Distriubion")==std::string::npos)
-         {
+    {
       std::getline(s,line);
       if (!s.good())
         return s;

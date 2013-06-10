@@ -114,6 +114,11 @@ public:
       std::vector<double> newYfit_;
       std::vector<double> newYfit0_;
 
+      double currSSd_;
+      double newSSd_;
+      double newSSd0_;
+
+
       double currSS_;
       double newSSW_;
       double newSSW0_;

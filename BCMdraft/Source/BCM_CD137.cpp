@@ -34,7 +34,7 @@ const std::vector<std::string> observNames
   "rg_T_obs","ra_T_obs","prolifT_obs","apoptosisT_obs","nCells_obs"};
 
 enum {a_obs,g_obs,rRLA_obs,rRLN_obs,rRT_obs,rg_A_obs,ra_A_obs,rg_N_obs,ra_N_obs,rg_T_obs,ra_T_obs,
-      prolifRate_obs,apopRateT_obs,nCells_obs};
+      apopRateT_obs,prolifRate_obs,nCells_obs};
 
 const std::vector<std::string> externNames{"nC0","Ag0","Ab_R","Ab_a","Ab_g","a_rec","g_rec"};
 
