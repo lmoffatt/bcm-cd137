@@ -112,6 +112,7 @@ PosteriorLevenbergMarquardt& PosteriorLevenbergMarquardt::optimize(std::size_t n
     */
 
   std::cout<<report();
+  ff<<report();
   return *this;
 }
 

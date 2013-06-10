@@ -33,6 +33,12 @@ int main(int argc, char **argv)
               std::stringstream ss(seg);
               ss>>radius;
             }
+          if (argc>4)
+            {
+              std::string seg=argv[4];
+              std::stringstream ss(seg);
+              ss>>nseeds;
+            }
 
 
 
