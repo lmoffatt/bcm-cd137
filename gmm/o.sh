@@ -8,7 +8,7 @@
 # Exporta las variables de entorno
 #PBS -N bcm-t
 # El nombre del job
-#PBS -d /home/lmoffatt/bcm-cd137/runs/
+#PBS -d /home/lmoffatt/bcm-cd137/runs/dario
 # Cambia al directorio runs
 
 
@@ -20,4 +20,4 @@ export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 export OBJC_INCLUDE_PATH=$C_INCLUDE_PATH
 export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
 export PATH=/opt/gcc-4.8.0/bin:$PATH
-/home/lmoffatt/bcm-cd137/gmm/BCMdraft optimize 2000
+/home/lmoffatt/bcm-cd137/gmm/BCMdraft optimize 20 2
