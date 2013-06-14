@@ -55,11 +55,14 @@ PosteriorLevenbergMarquardt(ABC_BCM* m,
 {}
 
 PosteriorLevenbergMarquardt& PosteriorLevenbergMarquardt::optimize(std::size_t numIterations,
-                                                                   double maxTime)
+                                                                   double maxTime,const std::string& datastr)
 {
-  std::cout<<iter_.header();
+    std::cerr<<"\nseed number="<<ABC_BCM::seed<<"\n";
+
+  std::cerr<<iter_.header();
   std::stringstream ss1;
-  ss1<<"optimize";
+  ss1<<"optimize_"<<datastr;
+
   ss1<<ABC_BCM::seed;
   ss1<<".txt";
   std::string filename=ss1.str();
@@ -111,7 +114,7 @@ PosteriorLevenbergMarquardt& PosteriorLevenbergMarquardt::optimize(std::size_t n
     evidence_=LogPostLik_+0.5*logDetPostCov_+0.5*nPar_*log(2*PI);
     */
 
-  std::cout<<report();
+  std::cerr<<report();
   ff<<report();
   return *this;
 }

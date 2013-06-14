@@ -1,6 +1,3 @@
-#!/bin/bash
-#
-# Script para correr trabajo serial
 #
 
 # Opciones SGE
@@ -20,4 +17,4 @@ export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 export OBJC_INCLUDE_PATH=$C_INCLUDE_PATH
 export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
 export PATH=/opt/gcc-4.8.0/bin:$PATH
-/home/lmoffatt/bcm-cd137/gmm/BCMdraft optimize 5000 1 500
+/home/lmoffatt/bcm-cd137/gmm/BCMdraft optimize_complete 5000 1 500

@@ -52,6 +52,7 @@ int main(int argc, char **argv)
               ss1<<LM.SS();
               ss1<<"optimize";
               ss1<<ABC_BCM::seed;
+              ss1<<"_"<<i;
               ss1<<".txt";
               std::string filename=ss1.str();
               std::ofstream ff;
@@ -71,6 +72,65 @@ int main(int argc, char **argv)
 
 
         }
+
+      if (command=="optimize_complete")
+      {
+          auto e=m.getExperiments({"media","mtb","CD137block","TNFblock","TNFrecomb","IFNblock","IFNrecomb"});
+        std::size_t nseeds=1;
+        std::size_t niter=100;
+        double radius=0.5;
+        if (argc>2)
+          {
+            std::string siter=argv[2];
+            std::stringstream ss(siter);
+            ss>>niter;
+          }
+        if (argc>3)
+          {
+            std::string seg=argv[3];
+            std::stringstream ss(seg);
+            ss>>radius;
+          }
+        if (argc>4)
+          {
+            std::string seg=argv[4];
+            std::stringstream ss(seg);
+            ss>>nseeds;
+          }
+
+
+
+        for(std::size_t i=0; i<nseeds;i++)
+          {
+            PosteriorLevenbergMarquardt LM(
+                  &m,m.getPrior()->randomSample(radius),e,0.01);
+            LM.optimize(niter,10000,"complete");
+
+            std::stringstream ss1;
+            ss1<<LM.SS();
+            ss1<<"optimize_complete";
+            ss1<<ABC_BCM::seed;
+            ss1<<"_"<<i;
+            ss1<<".txt";
+            std::string filename=ss1.str();
+            std::ofstream ff;
+            ff.open(filename.c_str()  , std::fstream::out);
+
+
+
+            ff<<LM;
+            ff<<LM.OptimParameters();
+            ff<<m.simulate(LM.OptimParameters().center(),e,0.01,0);
+
+
+
+            ff.flush();
+
+          }
+
+
+      }
+
 
       if (command=="reoptimize")
         {
@@ -107,7 +167,7 @@ int main(int argc, char **argv)
             {
               PosteriorLevenbergMarquardt LM(
                     &m,testP.randomSample(radius),e,0.01);
-              LM.optimize(niter,10000);
+              LM.optimize(niter,10000,"re");
 
               std::stringstream ss1;
               ss1<<LM.SS();
