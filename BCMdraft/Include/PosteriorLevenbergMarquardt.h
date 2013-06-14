@@ -21,7 +21,7 @@ public:
                               const std::vector<const ExperimentDistribution*>& expset,
                                double dt);
 
-    PosteriorLevenbergMarquardt& optimize(std::size_t numIterations, double maxTime=0);
+   PosteriorLevenbergMarquardt& optimize(std::size_t numIterations, double maxTime=0,const std::string& datastr="");
 
 
 /*
