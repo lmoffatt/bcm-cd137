@@ -120,3 +120,11 @@ runMCMC(std::string filename,
 }
 
 
+VariablesNormalDistribution
+getPosterior(const MCMCrun& run)
+{
+  
+}
+
+
+

@@ -41,7 +41,8 @@ runMCMC(std::string filename,
         double dt);
 
 
-
+VariablesNormalDistribution
+getPosterior(const MCMCrun& run);
 
 
 

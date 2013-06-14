@@ -691,7 +691,7 @@ double ABC_BCM::logLikelihood(const VariablesValue& p,
 
   for (std::size_t i=0; i<ndata;i++)
     {
-      logL+= -0.5*pow(y[i]-d[i],2)*wD[i]+0.5 *log(wD[i]/2/PI);
+      logL+= -0.5*pow(y[i]-d[i],2)*wD[i]-0.5 *log(wD[i]/2/PI);
     };
 
   return logL;
